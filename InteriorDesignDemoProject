@@ -1,0 +1,115 @@
+tk = Tk()
+
+tk.title("Interior Design Demo")
+tk.geometry("550x325")
+
+tk.columnconfigure(0, weight=2, pad=5)
+tk.columnconfigure(1, weight=2, pad=5)
+
+text1 = Label(tk, text="Interior Design Demo", font=('Arial', 18))
+text1.grid(row=0, column=0, columnspan=2, pady=25, padx=25)
+
+selected_item = ""
+selected_button = ""
+
+
+def show_options(option):
+
+ global selected_item
+
+if selected_item == "":
+    selected_item = option
+
+    if option == "P":
+     b2["state"] = "disabled"
+     b3["state"] = "normal"
+     b4["state"] = "normal"
+     b1["state"] = "active"
+
+    else:
+     b1["state"] = "disabled"
+     b3["state"] = "normal"
+     b4["state"] = "normal"
+     b2["state"] = "active"
+
+else:
+ b1["state"] = "normal"
+ b2["state"] = "normal"
+ b3["state"] = "disabled"
+ b4["state"] = "disabled"
+selected_item = ""
+
+
+
+def show_colors(option):
+
+ selected_color = ""
+
+
+if option == "V":
+ selected_color = "Vivid"
+else:
+ selected_color = "Neutral"
+
+if selected_item == "P":
+ selected_button = "Personal"
+else:
+ selected_button = "Business"
+
+newwindow = Toplevel(tk)
+newwindow.title(selected_button)
+
+newwindow.columnconfigure(0, weight=1, pad=5)
+newwindow.columnconfigure(1, weight=1, pad=5)
+newwindow.columnconfigure(2, weight=1, pad=5)
+newwindow.columnconfigure(3, weight=1, pad=5)
+
+newwindow.geometry("600x300")
+
+if selected_item == "P" and selected_color == "Vivid":
+ colors = ['#fffc40', '#ff2fa9', '#ff8172', '#36244f']
+if selected_item == "B" and selected_color == "Vivid":
+ colors = ['#471337', '#b13254', '#ff5349', '#ff7249']
+if selected_item == "P" and selected_color == "Neutral":
+ colors = ['#f8cd82', '#f65b74', '#f72078', '#0df7db']
+if selected_item == "B" and selected_color == "Neutral":
+ colors = ['#4f6a8f', '#88a2bc', '#f0dbb0', '#efb680']
+
+block_width = 50
+block_height = 300
+
+box1 = Frame(newwindow, bg=colors[0], width=block_width,
+height=block_height)
+box2 = Frame(newwindow, bg=colors[1], width=block_width,
+height=block_height)
+box3 = Frame(newwindow, bg=colors[2], width=block_width,
+height=block_height)
+box4 = Frame(newwindow, bg=colors[3], width=block_width,
+height=block_height)
+
+text2 = Label(newwindow, text=selected_button + " / " + selected_color
++ " Palette")
+
+text2.grid(row=0, column=0, columnspan=4, pady=25, padx=25)
+box.grid(row=1, column=0, sticky=EW)
+box2.grid(row=1, column=1, sticky=EW)
+box3.grid(row=1, column=2, sticky=EW)
+box4.grid(row=1, column=3, sticky=EW)
+
+b1 = Button(tk, text="Personal", command=lambda: show_options('P'))
+b2 = Button(tk, text="Business", command=lambda: show_options('B'))
+b3 = Button(tk, text="Vivid", command=lambda: show_colors('V'))
+b4 = Button(tk, text="Neutral", command=lambda: show_colors('N'))
+
+b3["state"] = "disabled"
+b4["state"] = "disabled"
+
+exit_button = Button(tk, text='Exit', command=lambda: tk.quit())
+
+b1.grid(row=1, column=0, sticky=EW, pady=10, padx=25)
+b2.grid(row=1, column=1, sticky=EW, pady=10, padx=25)
+b3.grid(row=2, column=0, sticky=EW, pady=0, padx=10)
+b4.grid(row=2, column=1, sticky=EW, pady=0, padx=10)
+exit_button.grid(row=4, column=0, columnspan=2, padx=30, pady=30)
+
+tk.mainloop()
